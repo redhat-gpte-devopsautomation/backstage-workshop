@@ -1,0 +1,11 @@
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: showcase-templates
+  description: A collection of Backstage templates for RH Summit
+spec:
+  type: url
+  targets:
+    - https://{{ gitlab_host }}/{{ gitlab_group }}/backstage-workshop/blob/master/scaffolder-templates/poi-backend/template.yaml
+    - https://{{ gitlab_host }}/{{ gitlab_group }}/backstage-workshop/blob/master/scaffolder-templates/poi-gateway/template.yaml
+    - https://{{ gitlab_host }}/{{ gitlab_group }}/backstage-workshop/blob/master/scaffolder-templates/poi-map/template.yaml
