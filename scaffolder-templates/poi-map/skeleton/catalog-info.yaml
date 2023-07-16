@@ -10,7 +10,7 @@ metadata:
     backstage.io/kubernetes-id: ${{values.component_id}}
     backstage.io/kubernetes-namespace: ${{values.namespace}}
     backstage.io/techdocs-ref: dir:.
-    backstage.io/source-location: url:https://${{values.gitlabHost}}/${{values.destination}}
+    backstage.io/source-location: url:https://${{values.git_host}}/${{values.destination}}
     janus-idp.io/tekton-enabled: 'true'
   tags:
     - typescript
@@ -23,7 +23,7 @@ metadata:
     - url: https://console-openshift-console${{values.cluster_id}}/k8s/ns/${{values.namespace}}/deployments/${{values.component_id}}
       title: Deployment
       icon: web
-    - url: https://devspaces${{values.cluster_id}}/#https://github.com/${{values.githubOrg}}/${{values.repoName}}?che-editor=che-incubator/che-code/latest&devfilePath=.devfile-vscode.yaml
+    - url: https://devspaces${{values.cluster_id}}/#https://${{values.git_host}}/${{values.gitlabGroup}}/${{values.repoName}}?che-editor=che-incubator/che-code/latest&devfilePath=.devfile-vscode.yaml
       title: OpenShift Dev Spaces (VS Code)
       icon: web
     - url: http://${{values.component_id}}-${{values.namespace}}${{values.cluster_id}}
