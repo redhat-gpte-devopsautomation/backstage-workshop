@@ -37,7 +37,7 @@ spec:
           type: string
           description: Id of the cluster
           default: .apps.cluster-xxxxx.xxxxx.sandbox123.opentlc.com
-        namespace: 
+        namespace:
           title: Namespace
           type: string
           description: Namespace
@@ -72,12 +72,12 @@ spec:
         url: ./skeleton
         targetPath: ./source
         values:
-          githubOrg: ${{parameters.githubOrg}}
-          repoName: ${{parameters.namespace}}-gateway
-          owner: ${{parameters.owner}}
-          cluster_id: ${{parameters.cluster_id}}
-          namespace: ${{parameters.namespace}}
-          component_id: ${{parameters.namespace}}-poi-gateway-app
+          githubOrg: {{ '${{parameters.githubOrg}}' }}
+          repoName: {{ '${{parameters.namespace}}' }}-gateway
+          owner: {{ '${{parameters.owner}}' }}
+          cluster_id: {{ '${{parameters.cluster_id}}' }}
+          namespace: {{ '${{parameters.namespace}}' }}
+          component_id: {{ '${{parameters.namespace}}' }}-poi-gateway-app
     - id: publishSource
       name: Publishing to Source Code Repository
       action: publish:github
@@ -85,16 +85,16 @@ spec:
         sourcePath: ./source
         allowedHosts:
           - github.com
-        description: ${{parameters.description}}
-        repoUrl: github.com?owner=${{parameters.githubOrg}}&repo=${{parameters.namespace}}-gateway
+        description: {{ '${{parameters.description}}' }}
+        repoUrl: github.com?owner={{ '${{parameters.githubOrg}}' }}&repo={{ '${{parameters.namespace}}' }}-gateway
         defaultBranch: main
         protectDefaultBranch: false
-        repoVisibility: public    
+        repoVisibility: public
     - id: registerSource
       name: Registering the Source Code Component
       action: catalog:register
       input:
-        repoContentsUrl: ${{steps.publishSource.output.repoContentsUrl}}
+        repoContentsUrl: {{ '${{steps.publishSource.output.repoContentsUrl}}' }}
         catalogInfoPath: /catalog-info.yaml
     - id: templateGitops
       name: Generating the deployment resources and artefacts
@@ -103,25 +103,25 @@ spec:
         url: ./manifests
         copyWithoutTemplating: []
         values:
-          component_id: ${{parameters.namespace}}-poi-gateway-app
-          description: ${{parameters.description}}
-          destination: https://github.com/${{parameters.githubOrg}}/${{parameters.namespace}}-gateway-gitops
-          source_repository: https://github.com/${{parameters.githubOrg}}/${{parameters.namespace}}-gateway
-          repository_name: ${{parameters.namespace}}-gateway
-          git_owner: ${{parameters.githubOrg}}
-          cluster: ${{parameters.cluster_id}}
-          namespace: ${{parameters.namespace}}
-          image_host: ${{parameters.image_host}}
-          image_name: ${{parameters.namespace}}/poi-gateway-app
-          image_tag: ${{parameters.image_tag}}
+          component_id: {{ '${{parameters.namespace}}' }}-poi-gateway-app
+          description: {{ '${{parameters.description}}' }}
+          destination: https://github.com/{{ '${{parameters.githubOrg}}' }}/{{ '${{parameters.namespace}}' }}-gateway-gitops
+          source_repository: https://github.com/{{ '${{parameters.githubOrg}}' }}/{{ '${{parameters.namespace}}' }}-gateway
+          repository_name: {{ '${{parameters.namespace}}' }}-gateway
+          git_owner: {{ '${{parameters.githubOrg}}' }}
+          cluster: {{ '${{parameters.cluster_id}}' }}
+          namespace: {{ '${{parameters.namespace}}' }}
+          image_host: {{ '${{parameters.image_host}}' }}
+          image_name: {{ '${{parameters.namespace}}' }}/poi-gateway-app
+          image_tag: {{ '${{parameters.image_tag}}' }}
         targetPath: ./tenant-gitops
     - id: publishGitops
       name: Publishing to Deployment Resource Repository
       action: publish:github
       input:
-        repoUrl: github.com?owner=${{parameters.githubOrg}}&repo=${{parameters.namespace}}-gateway-gitops
-        title: gitops resources for ${{parameters.namespace}}-poi-gateway-app
-        description: gitops resources for ${{parameters.namespace}}-poi-gateway-app
+        repoUrl: github.com?owner={{ '${{parameters.githubOrg}}' }}&repo={{ '${{parameters.namespace}}' }}-gateway-gitops
+        title: gitops resources for {{ '${{parameters.namespace}}' }}-poi-gateway-app
+        description: gitops resources for {{ '${{parameters.namespace}}' }}-poi-gateway-app
         sourcePath: ./tenant-gitops
         defaultBranch: main
         protectDefaultBranch: false
@@ -130,17 +130,17 @@ spec:
       name: Create ArgoCD Resources
       action: argocd:create-resources
       input:
-        appName: ${{parameters.namespace}}-poi-gateway-app-bootstrap
+        appName: {{ '${{parameters.namespace}}' }}-poi-gateway-app-bootstrap
         argoInstance: main
         namespace: janus-argocd
-        repoUrl: https://github.com/${{parameters.githubOrg}}/${{parameters.namespace}}-gateway-gitops.git
+        repoUrl: https://github.com/{{ '${{parameters.githubOrg}}' }}/{{ '${{parameters.namespace}}' }}-gateway-gitops.git
         path: 'argocd/'
   output:
     links:
       - title: Source Code Repository
-        url: ${{steps.publishSource.output.remoteUrl}}
+        url: {{ '${{steps.publishSource.output.remoteUrl}}' }}
       - title: Pipeline status
-        url: https://console-openshift-console${{parameters.cluster_id}}/dev-pipelines/ns/${{parameters.namespace}}/
+        url: https://console-openshift-console{{ '${{parameters.cluster_id}}' }}/dev-pipelines/ns/{{ '${{parameters.namespace}}' }}/
       - title: Open Component in catalog
         icon: catalog
-        entityRef: ${{steps.registerSource.output.entityRef}}
+        entityRef: {{ '${{steps.registerSource.output.entityRef}}' }}
