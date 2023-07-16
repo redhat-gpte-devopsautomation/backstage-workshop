@@ -81,7 +81,7 @@ spec:
       input:
         sourcePath: ./source
         description: {{ '${{parameters.description}}' }}
-        repoUrl: {{ '${{parameters.git_host}}' }}?owner={{ '${{parameters.gitlabGroup}}' }}&repo={{ '${{parameters.namespace}}' }}-frontend
+        repoUrl: {{ git_host }}?owner={{ '${{parameters.gitlabGroup}}' }}&repo={{ '${{parameters.namespace}}' }}-frontend
         defaultBranch: main
         protectDefaultBranch: false
         repoVisibility: public
@@ -116,7 +116,7 @@ spec:
       name: Publishing to Deployment Resource Repository
       action: publish:gitlab
       input:
-        repoUrl: {{ '${{parameters.git_host}}' }}?owner={{ '${{parameters.gitlabGroup}}' }}&repo={{ '${{parameters.namespace}}' }}-frontend-gitops
+        repoUrl: {{ git_host }}?owner={{ '${{parameters.gitlabGroup}}' }}&repo={{ '${{parameters.namespace}}' }}-frontend-gitops
         title: gitops resources for {{ '${{parameters.namespace}}' }}-poi-map-app
         description: gitops resources for {{ '${{parameters.namespace}}' }}-poi-map-app
         sourcePath: ./tenant-gitops
@@ -130,7 +130,7 @@ spec:
         appName: {{ '${{parameters.namespace}}' }}-poi-map-app-bootstrap
         argoInstance: main
         namespace: janus-argocd
-        repoUrl: https://{{ '${{parameters.git_host}}' }}/{{ '${{parameters.gitlabGroup}}' }}/{{ '${{parameters.namespace}}' }}-frontend-gitops.git
+        repoUrl: https://{{ git_host }}/{{ '${{parameters.gitlabGroup}}' }}/{{ '${{parameters.namespace}}' }}-frontend-gitops.git
         path: 'argocd/'
   output:
     links:

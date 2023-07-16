@@ -10,7 +10,7 @@ metadata:
     backstage.io/kubernetes-id: ${{values.component_id}}
     backstage.io/kubernetes-namespace: ${{values.namespace}}
     backstage.io/techdocs-ref: dir:.
-    backstage.io/source-location: url:https://${{values.git_host}}/${{values.destination}}
+    backstage.io/source-location: url:https://${{values.git_host}}/${{values.gitlabGroup}}/${{values.repoName}}
     janus-idp.io/tekton-enabled: 'true'
   tags:
     - typescript
