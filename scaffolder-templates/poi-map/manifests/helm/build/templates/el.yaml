@@ -8,7 +8,7 @@ spec:
   triggers:
     - bindings:
         - kind: ClusterTriggerBinding
-          ref: github-push
+          ref: gitlab-push
       interceptors:
         - params:
             - name: eventTypes
