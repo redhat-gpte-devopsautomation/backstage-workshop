@@ -11,6 +11,11 @@ spec:
           ref: gitlab-push
       interceptors:
         - params:
+          - name: secretRef
+            value:
+              secretKey: secret
+              secretName: {{ .Values.app.name }}-webhook
+        - params:
             - name: eventTypes
               value: ["push"]
           ref:
