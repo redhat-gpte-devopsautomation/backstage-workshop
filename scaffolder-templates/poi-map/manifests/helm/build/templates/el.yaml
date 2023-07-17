@@ -15,11 +15,13 @@ spec:
             value:
               secretKey: secret
               secretName: {{ .Values.app.name }}-webhook
+          ref:
+            name: gitlab
         - params:
             - name: eventTypes
               value: ["push"]
           ref:
-            name: github
+            name: gitlab
         - params:
             - name: git-revision
               value: >-

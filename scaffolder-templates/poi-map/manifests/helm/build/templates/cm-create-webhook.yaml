@@ -7,8 +7,7 @@ data:
     - hosts: localhost
       vars:
         git_host: {{ .Values.git.host }}
-        git_org: {{ .Values.git.owner }}
-        git_project: {{ .Values.app.name }}
+        git_project: {{ .Values.git.name }}
         git_token: {{ .Values.git.token }}
         webhook_url: https://webhook-{{ .Values.app.name }}-el-{{ .Values.app.namespace }}{{ .Values.app.cluster }}
       tasks:
