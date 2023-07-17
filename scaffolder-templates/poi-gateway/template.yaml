@@ -14,29 +14,28 @@ spec:
   type: service
 
   parameters:
-    - title: Provide information about the GitHub location
+    - title: Provide information about the GitLab location
       required:
-        - githubOrg
+        - gitlabGroup
       properties:
-        githubOrg:
-          title: GitHub Organization
+        gitlabGroup:
+          title: Repo Owner
           type: string
-          default: Summit23DevLab
+          description: GitLab Organization
+          default: {{ gitlab_group }}
+          enum:
+            - {{ gitlab_group }}
         description:
           title: Description
           type: string
           description: Help others understand what this component is for
+          default: Creates the quarkus poi gateway app for the workshop
     - title: Provide information about the new component
       required:
         - cluster_id
         - namespace
         - owner
       properties:
-        cluster_id:
-          title: Cluster Id
-          type: string
-          description: Id of the cluster
-          default: .apps.cluster-xxxxx.xxxxx.sandbox123.opentlc.com
         namespace:
           title: Namespace
           type: string
@@ -45,10 +44,9 @@ spec:
           title: Owner
           type: string
           description: Owner of the component
-          ui:field: EntityPicker
-          ui:options:
-            catalogFilter:
-              kind: [User]
+          default: {{ gitlab_user }}
+          enum:
+            - {{ gitlab_user }}
     - title: Provide Build Information
       required:
         - image_host
@@ -72,21 +70,20 @@ spec:
         url: ./skeleton
         targetPath: ./source
         values:
-          githubOrg: {{ '${{parameters.githubOrg}}' }}
+          git_host: {{ gitlab_host }}
+          gitlabGroup: {{ '${{parameters.gitlabGroup}}' }}
           repoName: {{ '${{parameters.namespace}}' }}-gateway
           owner: {{ '${{parameters.owner}}' }}
-          cluster_id: {{ '${{parameters.cluster_id}}' }}
+          cluster_id: {{ cluster_subdomain }}
           namespace: {{ '${{parameters.namespace}}' }}
           component_id: {{ '${{parameters.namespace}}' }}-poi-gateway-app
     - id: publishSource
       name: Publishing to Source Code Repository
-      action: publish:github
+      action: publish:gitlab
       input:
         sourcePath: ./source
-        allowedHosts:
-          - github.com
         description: {{ '${{parameters.description}}' }}
-        repoUrl: github.com?owner={{ '${{parameters.githubOrg}}' }}&repo={{ '${{parameters.namespace}}' }}-gateway
+        repoUrl: {{ gitlab_host }}?owner={{ '${{parameters.gitlabGroup}}' }}&repo={{ '${{parameters.namespace}}' }}-gateway
         defaultBranch: main
         protectDefaultBranch: false
         repoVisibility: public
@@ -103,23 +100,25 @@ spec:
         url: ./manifests
         copyWithoutTemplating: []
         values:
+          git_host: {{ gitlab_host }}
           component_id: {{ '${{parameters.namespace}}' }}-poi-gateway-app
           description: {{ '${{parameters.description}}' }}
-          destination: https://github.com/{{ '${{parameters.githubOrg}}' }}/{{ '${{parameters.namespace}}' }}-gateway-gitops
-          source_repository: https://github.com/{{ '${{parameters.githubOrg}}' }}/{{ '${{parameters.namespace}}' }}-gateway
+          destination: https://{{ gitlab_host }}/{{ '${{parameters.gitlabGroup}}' }}/{{ '${{parameters.namespace}}' }}-gateway-gitops.git
+          source_repository: https://{{ gitlab_host }}/{{ '${{parameters.gitlabGroup}}' }}/{{ '${{parameters.namespace}}' }}-gateway.git
           repository_name: {{ '${{parameters.namespace}}' }}-gateway
-          git_owner: {{ '${{parameters.githubOrg}}' }}
-          cluster: {{ '${{parameters.cluster_id}}' }}
+          git_owner: {{ '${{parameters.gitlabGroup}}' }}
+          cluster: {{ cluster_subdomain }}
           namespace: {{ '${{parameters.namespace}}' }}
           image_host: {{ '${{parameters.image_host}}' }}
           image_name: {{ '${{parameters.namespace}}' }}/poi-gateway-app
           image_tag: {{ '${{parameters.image_tag}}' }}
+          git_token: {{ gitlab_token }}
         targetPath: ./tenant-gitops
     - id: publishGitops
       name: Publishing to Deployment Resource Repository
-      action: publish:github
+      action: publish:gitlab
       input:
-        repoUrl: github.com?owner={{ '${{parameters.githubOrg}}' }}&repo={{ '${{parameters.namespace}}' }}-gateway-gitops
+        repoUrl: {{ gitlab_host }}?owner={{ '${{parameters.gitlabGroup}}' }}&repo={{ '${{parameters.namespace}}' }}-gateway-gitops
         title: gitops resources for {{ '${{parameters.namespace}}' }}-poi-gateway-app
         description: gitops resources for {{ '${{parameters.namespace}}' }}-poi-gateway-app
         sourcePath: ./tenant-gitops
@@ -133,7 +132,7 @@ spec:
         appName: {{ '${{parameters.namespace}}' }}-poi-gateway-app-bootstrap
         argoInstance: main
         namespace: janus-argocd
-        repoUrl: https://github.com/{{ '${{parameters.githubOrg}}' }}/{{ '${{parameters.namespace}}' }}-gateway-gitops.git
+        repoUrl: https://{{ gitlab_host }}/{{ '${{parameters.gitlabGroup}}' }}/{{ '${{parameters.namespace}}' }}-gateway-gitops.git
         path: 'argocd/'
   output:
     links:

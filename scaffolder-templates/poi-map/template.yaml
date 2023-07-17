@@ -27,8 +27,8 @@ spec:
         description:
           title: Description
           type: string
-          description: Angular SPA for Points-of-Interest Map
-          default: {{ gitlab_group }}
+          description: Help others understand what this component is for
+          default: Angular SPA for Points-of-Interest Map
     - title: Provide information about the new component
       required:
         - namespace
