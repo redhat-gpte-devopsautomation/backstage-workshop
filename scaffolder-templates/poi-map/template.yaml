@@ -101,8 +101,8 @@ spec:
           git_host: {{ gitlab_host }}
           component_id: {{ '${{parameters.namespace}}' }}-poi-map-app
           description: {{ '${{parameters.description}}' }}
-          destination: https://{{ gitlab_host }}/{{ '${{parameters.gitlabGroup}}' }}/{{ '${{parameters.namespace}}' }}-frontend-gitops
-          source_repository: https://{{ gitlab_host }}/{{ '${{parameters.gitlabGroup}}' }}/{{ '${{parameters.namespace}}' }}-frontend
+          destination: https://{{ gitlab_host }}/{{ '${{parameters.gitlabGroup}}' }}/{{ '${{parameters.namespace}}' }}-frontend-gitops.git
+          source_repository: https://{{ gitlab_host }}/{{ '${{parameters.gitlabGroup}}' }}/{{ '${{parameters.namespace}}' }}-frontend.git
           repository_name: {{ '${{parameters.namespace}}' }}-frontend
           git_owner: {{ '${{parameters.gitlabGroup}}' }}
           cluster: {{ cluster_subdomain }}
