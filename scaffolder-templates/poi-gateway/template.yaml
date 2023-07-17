@@ -32,7 +32,6 @@ spec:
           default: Creates the quarkus poi gateway app for the workshop
     - title: Provide information about the new component
       required:
-        - cluster_id
         - namespace
         - owner
       properties:
