@@ -59,7 +59,7 @@ metadata:
     - url: http://${{values.component_id}}-${{values.namespace}}${{values.cluster_id}}/q/swagger-ui
       title: Swagger UI
       icon: web
-    - url: https://${{values.git_host}}/${{values.gitlabOrg}}/${{values.repoName}}/tree/main/src/main/resources/META-INF/openapi.yaml
+    - url: https://${{values.git_host}}/${{values.gitlabGroup}}/${{values.repoName}}/tree/main/src/main/resources/META-INF/openapi.yaml
       title: API Spec
       icon: code
 spec:
