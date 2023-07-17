@@ -27,7 +27,8 @@ spec:
         description:
           title: Description
           type: string
-          description: Help others understand what this component is for
+          description: Angular SPA for Points-of-Interest Map
+          default: {{ gitlab_group }}
     - title: Provide information about the new component
       required:
         - namespace
@@ -41,10 +42,9 @@ spec:
           title: Owner
           type: string
           description: Owner of the component
-          ui:field: EntityPicker
-          ui:options:
-            catalogFilter:
-              kind: [User]
+          default: {{ gitlab_user }}
+          enum:
+            - {{ gitlab_user }}
     - title: Provide Build Information
       required:
         - image_host
