@@ -3,7 +3,7 @@ kind: Template
 metadata:
   name: poi-backend-template
   title: Quarkus Backend Application for Points-of-Interest Map
-  description: creates the quarkus poi backend app for the workshop
+  description: Creates the quarkus poi backend app for the workshop
   tags:
     - java
     - quarkus
@@ -29,6 +29,7 @@ spec:
           title: Description
           type: string
           description: Help others understand what this component is for
+          default: Creates the quarkus poi backend app for the workshop
     - title: Provide information about the new component
       required:
         - namespace
