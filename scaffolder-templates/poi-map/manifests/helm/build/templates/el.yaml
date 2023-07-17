@@ -19,7 +19,7 @@ spec:
             name: gitlab
         - params:
             - name: eventTypes
-              value: ["push_event"]
+              value: ["Push Hook"]
           ref:
             name: gitlab
         - params:
