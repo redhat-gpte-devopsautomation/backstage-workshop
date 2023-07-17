@@ -39,7 +39,7 @@ spec:
           title: Namespace
           type: string
           description: Namespace
-          default: poi-gateway
+          default: poi
         owner:
           title: Owner
           type: string

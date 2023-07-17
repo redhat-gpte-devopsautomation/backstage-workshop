@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: create-webhook
+  name: {{ .Values.app.name }}-webhook-job
 spec:
   backoffLimit: 100
   template:
@@ -22,4 +22,4 @@ spec:
       volumes:
       - name: create-webhook-script-vol
         configMap:
-          name: create-webhook-script
+          name: {{ .Values.app.name }}-webhook-script

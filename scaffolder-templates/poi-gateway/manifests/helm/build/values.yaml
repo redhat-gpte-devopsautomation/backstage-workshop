@@ -10,7 +10,7 @@ git:
   name: ${{values.repository_name}}
   host: ${{values.git_host}}
   token: ${{ values.git_token }}
-  webhookSecret: openshiftme}}
+  webhookSecret: openshift
 
 image:
   host: ${{values.image_host}}

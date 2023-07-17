@@ -38,7 +38,7 @@ spec:
           title: Namespace
           type: string
           description: Namespace
-          default: poi-frontend
+          default: poi
         owner:
           title: Owner
           type: string
