@@ -10,7 +10,7 @@ metadata:
     backstage.io/kubernetes-id: ${{values.component_id}}
     backstage.io/kubernetes-namespace: ${{values.namespace}}
     backstage.io/techdocs-ref: dir:.
-    github.com/project-slug: ${{values.githubOrg}}/${{values.repoName}}
+    backstage.io/source-location: url:https://${{values.git_host}}/${{values.gitlabGroup}}/${{values.repoName}}
     janus-idp.io/tekton-enabled: 'true'
   tags:
     - java
@@ -24,7 +24,7 @@ metadata:
     - url: https://console-openshift-console${{values.cluster_id}}/k8s/ns/${{values.namespace}}/deployments/${{values.component_id}}
       title: Deployment
       icon: web
-    - url: https://devspaces${{values.cluster_id}}/#https://github.com/${{values.githubOrg}}/${{values.repoName}}?che-editor=che-incubator/che-code/latest&devfilePath=.devfile-vscode.yaml
+    - url: https://devspaces${{values.cluster_id}}/#https://${{values.git_host}}/${{values.gitlabGroup}}/${{values.repoName}}?che-editor=che-incubator/che-code/latest&devfilePath=.devfile-vscode.yaml
       title: OpenShift Dev Spaces (VS Code)
       icon: web
 spec:
@@ -59,7 +59,7 @@ metadata:
     - url: http://${{values.component_id}}-${{values.namespace}}${{values.cluster_id}}/q/swagger-ui
       title: Swagger UI
       icon: web
-    - url: https://github.com/${{values.githubOrg}}/${{values.repoName}}/tree/main/src/main/resources/META-INF/openapi.yaml
+    - url: https://${{values.git_host}}/${{values.gitlabOrg}}/${{values.repoName}}/tree/main/src/main/resources/META-INF/openapi.yaml
       title: API Spec
       icon: code
 spec:
@@ -68,4 +68,4 @@ spec:
   owner: ${{values.owner | dump}}
   system: workshop-system-${{values.namespace}}
   definition:
-    $text: https://github.com/${{values.githubOrg}}/${{values.repoName}}/tree/main/src/main/resources/META-INF/openapi.yaml
+    $text: https://${{values.git_host}}/${{values.gitlabGroup}}/${{values.repoName}}/tree/main/src/main/resources/META-INF/openapi.yaml
