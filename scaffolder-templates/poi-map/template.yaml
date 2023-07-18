@@ -111,7 +111,6 @@ spec:
           image_host: {{ '${{parameters.image_host}}' }}
           image_name: {{ '${{parameters.namespace}}' }}/poi-map-app
           image_tag: {{ '${{parameters.image_tag}}' }}
-          git_token: {{ gitlab_token }}
         targetPath: ./tenant-gitops
     - id: publishGitops
       name: Publishing to Deployment Resource Repository

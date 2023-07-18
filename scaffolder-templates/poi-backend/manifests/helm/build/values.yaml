@@ -9,8 +9,8 @@ git:
   org: ${{values.git_owner}}
   name: ${{values.repository_name}}
   host: ${{values.git_host}}
-  token: ${{ values.git_token }}
-  webhookSecret: openshiftme}}
+  token: ''
+  webhookSecret: ''
 
 image:
   host: ${{values.image_host}}
