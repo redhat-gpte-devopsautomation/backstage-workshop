@@ -74,7 +74,7 @@ spec:
           gitlabGroup: {{ '${{parameters.gitlabGroup}}' }}
           repoName: {{ '${{parameters.namespace}}' }}-backend
           owner: {{ '${{parameters.owner}}' }}
-          cluster_id: {{ cluster_domain }}
+          cluster_id: {{ cluster_subdomain }}
           namespace: {{ '${{parameters.namespace}}' }}
           component_id: {{ '${{parameters.namespace}}' }}-poi-backend-app
     - id: publishSource
