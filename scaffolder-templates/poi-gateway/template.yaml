@@ -33,7 +33,6 @@ spec:
     - title: Provide information about the new component
       required:
         - namespace
-        - owner
       properties:
         namespace:
           title: Namespace
