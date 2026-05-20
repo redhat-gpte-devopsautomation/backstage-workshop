@@ -73,10 +73,8 @@ spec:
       action: publish:gitlab
       input:
         sourcePath: ./source
-        description: {{ '${{parameters.description}}' }}
         repoUrl: {{ gitlab_host }}?owner={{ '${{parameters.gitlabGroup}}' }}&repo={{ '${{parameters.namespace}}' }}-frontend
         defaultBranch: main
-        protectDefaultBranch: false
         repoVisibility: public
     - id: registerSource
       name: Registering the Source Code Component
@@ -109,11 +107,8 @@ spec:
       action: publish:gitlab
       input:
         repoUrl: {{ gitlab_host }}?owner={{ '${{parameters.gitlabGroup}}' }}&repo={{ '${{parameters.namespace}}' }}-frontend-gitops
-        title: gitops resources for {{ '${{parameters.namespace}}' }}-poi-map-app
-        description: gitops resources for {{ '${{parameters.namespace}}' }}-poi-map-app
         sourcePath: ./tenant-gitops
         defaultBranch: main
-        protectDefaultBranch: false
         repoVisibility: public
     - id: createArgoResources
       name: Create ArgoCD Resources
