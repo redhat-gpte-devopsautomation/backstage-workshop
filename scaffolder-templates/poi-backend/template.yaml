@@ -74,10 +74,8 @@ spec:
       action: publish:gitlab
       input:
         sourcePath: ./source
-        description: {{ '${{parameters.description}}' }}
         repoUrl: {{ gitlab_host }}?owner={{ '${{parameters.gitlabGroup}}' }}&repo={{ '${{parameters.namespace}}' }}-backend
         defaultBranch: main
-        protectDefaultBranch: false
         repoVisibility: public
     - id: registerSource
       name: Registering the Source Code Component
@@ -110,11 +108,8 @@ spec:
       action: publish:gitlab
       input:
         repoUrl: {{ gitlab_host }}?owner={{ '${{parameters.gitlabGroup}}' }}&repo={{ '${{parameters.namespace}}' }}-backend-gitops
-        title: gitops resources for {{ '${{parameters.namespace}}' }}-poi-backend-app
-        description: gitops resources for {{ '${{parameters.namespace}}' }}-poi-backend-app
         sourcePath: ./tenant-gitops
         defaultBranch: main
-        protectDefaultBranch: false
         repoVisibility: public
     - id: createArgoResources
       name: Create ArgoCD Resources
